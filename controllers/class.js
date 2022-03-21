@@ -1,6 +1,7 @@
 var jwt= require('jsonwebtoken');
 var bcrypt= require('bcrypt');
 var Class= require('../models/classes.js');
+const { default: mongoose } = require('mongoose');
 
 module.exports.getClass=(req, res)=>{
     Class.findOne({_id:req.body.classId})
@@ -55,7 +56,7 @@ module.exports.updateClass=(req,res)=>{
     }
     )
             console.log('hit addd', classObj)
-            classObj=new Class({...classObj});
+            classObj=new Class({...classObj, teacher:new mongoose.Types.ObjectId(classObj.teacher)});
             classObj.save((err, classObj)=>{
                 res.status(200).send({message:'Class Created'});
 })
