@@ -1,11 +1,12 @@
-var express=require('express');
-var bodyParser=require('body-parser');
-var mongoose=require('mongoose');
-var cors=require('cors');
+const express=require('express');
+const bodyParser=require('body-parser');
+const mongoose=require('mongoose');
+const cors=require('cors');
 require('dotenv').config();
 
-var loginRouter=require('./routes/loginRouter.js');
-var classRouter=require('./routes/classRouter.js');
+const loginRouter=require('./routes/loginRouter.js');
+const classRouter=require('./routes/classRouter.js');
+const userRouter=require('./routes/userRouter.js');
 
 const app=express();
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.get('/', (req, res)=>{res.status(200).send('hello')})
 app.use('/login', loginRouter);
 app.use('/class',classRouter);
+app.use('/user', userRouter);
 
 
 const PORT=process.env.PORT||5000;

@@ -4,13 +4,13 @@ const classSchema=mongoose.Schema({
     className:{type:String, required:true},
     section:{type:String, required:true},
     subject:{type:String, required:true},
-    students:[{
-        firstName:String,
-        lastName:String,
-        email:String
-    }],
+    students:{
+        type:Array
+    },
     teacher:[mongoose.Schema.Types.ObjectId],
-    data:[String]
+    data:{
+        type:Array
+    }
 })
 
 const Class=mongoose.model('Class', classSchema);

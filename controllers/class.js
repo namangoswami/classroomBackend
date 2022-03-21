@@ -22,34 +22,41 @@ module.exports.getClass=(req, res)=>{
 module.exports.addStudent=(req, res)=>{
     const classId=req.body.classId;
     const student=req.body.student;
-    classObj.findByIdAndUpdate(classId, {$push:{students:{...student}}});
+    console.log(student, classId)
+    Class.findOneAndUpdate({_id:classId}, {$addToSet:{students:{...student}}}).exec((err, Class)=>{
+        console.log('class',Class)
+    });
+    res.status(200).send('Updated');
 }
 
 
 
 module.exports.addDoc=(req, res)=>{
     const classId=req.body.classId;
-    const docFile=req.body.student;
-    classObj.findByIdAndUpdate(classId, {$push:{data:{...docFile   }}});
+    const docFile=req.body.doc;
+    Class.findOneAndUpdate({_id:classId}, {$push:{data:{...docFile}}}).exec((err, data)=>{
+        console.log(data)
+    });
 }
 
 
 module.exports.updateClass=(req,res)=>{
-    const classObj=req.body.classObj;
+    var classObj=req.body.classObj;
+    console.log(req.body.classObj)
+    console.log('update Class')
     Class.findByIdAndUpdate(classObj._id, {...classObj}).exec((err, classObj)=>{
         if(err)
         {
             res.status(500).send({message:err});
         }
         else if(classObj){
-            res.status(200).send({message:"Class Updated"})
-        }
-        else
-        {
-            classObj=new Class(classObj);
+            res.status(200).send({message:"Class Updated"})}
+      
+    }
+    )
+            console.log('hit addd', classObj)
+            classObj=new Class({...classObj});
             classObj.save((err, classObj)=>{
                 res.status(200).send({message:'Class Created'});
-            })
-        }
-    })
+})
 }

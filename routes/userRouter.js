@@ -1,6 +1,6 @@
 var express=require('express');
 var verifyToken=require('../middleware/authJWT.js');
-var {getClass, updateClass, addStudent} =require('../controllers/class.js');
+const  { getUserClasses }=require('../controllers/user.js');
 
 const app=express.Router();
 

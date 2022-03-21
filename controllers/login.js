@@ -27,11 +27,10 @@ module.exports.login=(req, res)=>{
         );
         res.status(200).send({
             user:{
-                id:user._id,
-                email:user.email,
+                ...user,
+                token:token
             },
             message:"Login Successful",
-            token:token
         });
     });
 }

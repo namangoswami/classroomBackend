@@ -4,7 +4,8 @@ var Class= require('../models/classes.js');
 var User=require('../models/users.js');
 
 module.exports.getUserClasses=(req, res)=>{
-    Class.find({_id:req.body.classId})
+    const user=req.user;
+    Class.find({$or:[{students:{$in:[user]}}, {teacher:user}]})
     .exec((err, classObjAr)=>{
         if(err){
             res.status(500).send({message:err});

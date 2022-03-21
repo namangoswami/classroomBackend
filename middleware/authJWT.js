@@ -7,7 +7,7 @@ module.exports= verifyToken=(req, res, next)=>{
             if(err)req.user=undefined;
             User.findOne({_id:decode.id}).exec((err, user)=>{
                 if(err){
-                    res.status(500).send({message:err});
+                    res.status(420).send({message:err});
                 }
                 else
                 {
